@@ -1,11 +1,17 @@
 mod handlers;
 mod configs;
 mod traits;
+mod errors;
+
+use core::error;
+use std::io;
 
 use handlers::cli_handler::CliHandler;
 
-fn main() {
+fn main() -> Result<(), Box<dyn error::Error>> {
   let cli_handler = CliHandler::new();
 
-  cli_handler.get_arguments();
+  let (input_file_path, search_string) = cli_handler.get_arguments()?;
+
+  Ok(())
 }
