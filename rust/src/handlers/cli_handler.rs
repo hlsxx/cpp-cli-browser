@@ -26,7 +26,7 @@ impl CliHandler {
       )));
     }
 
-    Ok((args[0].clone(), args[1].clone()))
+    Ok((args[1].clone(), args[2].clone()))
   }
 
 }
