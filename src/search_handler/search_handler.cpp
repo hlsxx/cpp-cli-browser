@@ -10,6 +10,11 @@
 
 #include "search_handler.hpp"
 
+#define RESET   "\033[0m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define CYAN    "\033[36;1m"
+
 SearchHandler::SearchHandler(FileHandler *fileHandler, std::string search, uint8_t prefixSize, uint8_t suffixSize) {
   this->fileHandler = fileHandler;
   this->search = search;
@@ -78,7 +83,11 @@ void SearchHandler::searchInFileBuffer(
         std::lock_guard<std::mutex> lock(coutMutex);
 
         std::string foundString = prefix + search + suffix;
-        std::cout << filePath << "(" << i << "): " << SearchHandler::escape(foundString) << std::endl;
+
+        std::cout << GREEN << filePath << RESET
+          << "(" << YELLOW << i << RESET << "): "
+          << CYAN << foundString << RESET 
+          << std::endl;
       }
     }
 
