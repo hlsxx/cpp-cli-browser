@@ -73,7 +73,9 @@ void SearchHandler::searchInFileBuffer(
     fileStream.read(buffer, bufferSize);
     size_t bytesRead = fileStream.gcount();
 
+    int lineCnt = 1;
     for (size_t i = 0; i < bytesRead; ++i) {
+      if (buffer[i] == '\n') lineCnt++;
       if (buffer[i] == search[0] && search == std::string(&buffer[i], searchSize)) {
         size_t start = std::max(0, int(i) - int(prefixSize));
 
@@ -85,7 +87,7 @@ void SearchHandler::searchInFileBuffer(
         std::string foundString = prefix + search + suffix;
 
         std::cout << GREEN << filePath << RESET
-          << "(" << YELLOW << i << RESET << "): "
+          << " (Line: " << YELLOW << lineCnt << RESET << "): "
           << CYAN << foundString << RESET 
           << std::endl;
       }
